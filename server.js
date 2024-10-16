@@ -107,6 +107,32 @@ const updateUsers = async (param) => {
 };
 
 
+const deleteUsers = async (param) => {
+    let status
+    const client = new MongoClient(uri);
+    try { 
+        
+        await client.connect();
+
+        const database = client.db('test'); // Nome do banco de dados
+        const collection = database.collection('users'); // Nome da coleção
+
+        const objectId = new ObjectId(param._id);
+    
+        const filter = {_id: objectId}
+
+
+        const deleteUser = await collection.deleteOneOne(filter);
+        status = {message: 'Success!', data: deleteUser}
+        return status
+    } catch (error) {
+        console.error('Error fetching posts:', error.message);
+    }finally{
+        await client.close()
+    }
+};
+
+
 //Buscar usuarios
 app.get('/getUsers', async (req, res) => {
     try {
@@ -134,6 +160,17 @@ app.post('/insertUser', async (req, res) => {
 app.post('/updateUser', async (req, res) => {
     try {
         const data = await updateUsers(req.body)
+        res.json(data); // Retorna os dados em formato JSON
+    } catch (error) {
+        console.error('Erro ao buscar dados:', error); // Registra o erro no console
+        return res.status(500).json({ error: error.message }); // Retorna uma resposta de erro ao cliente
+    }
+});
+
+//Deletar usuarios
+app.post('/deleteUser', async (req, res) => {
+    try {
+        const data = await deleteUsers(req.body)
         res.json(data); // Retorna os dados em formato JSON
     } catch (error) {
         console.error('Erro ao buscar dados:', error); // Registra o erro no console
