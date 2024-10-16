@@ -56,7 +56,7 @@ const insertUsers = async (param) => {
     let status
     const client = new MongoClient(uri);
     try {
-        
+        console.log(param)
         await client.connect()
 
         const database = client.db('test'); // Nome do banco de dados
@@ -122,7 +122,7 @@ const deleteUsers = async (param) => {
         const filter = {_id: objectId}
 
 
-        const deleteUser = await collection.deleteOneOne(filter);
+        const deleteUser = await collection.deleteOne(filter);
         status = {message: 'Success!', data: deleteUser}
         return status
     } catch (error) {
