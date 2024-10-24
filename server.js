@@ -3,31 +3,17 @@ import { MongoClient, ObjectId } from 'mongodb';
 import express from 'express';
 import cors from 'cors';
 import https from 'https';
-//import fs from 'fs';
-import { createCA, createCert } from "mkcert";
+import fs from 'fs';
 
 
 const app = express();
 app.use(cors());
 const port = 8000
 
-const ca = await createCA({
-    organization: "SamucaDev",
-    countryCode: "BR",
-    state: "São Paulo",
-    locality: "São Paulo",
-    validity: 365
-  });
-  
-  const cert = await createCert({
-    ca: { key: ca.key, cert: ca.cert },
-    domains: ["127.0.0.1", "localhost"],
-    validity: 365
-  });
 
 const options = {
-    key: cert.key,
-    cert: cert.cert
+    key: fs.readFileSync(''),
+    cert: fs.readFileSync('caminho_para_o_certificado_publico.cert')
   };
 
 
