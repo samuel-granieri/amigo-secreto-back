@@ -2,9 +2,18 @@ import mongoose from 'mongoose'
 import { MongoClient, ObjectId } from 'mongodb';
 import express from 'express';
 import cors from 'cors';
+import https from 'https';
+import fs from 'fs';
+
+
 const app = express();
 app.use(cors());
 const port = 8000
+
+const options = {
+    key: fs.readFileSync('caminho_para_o_certificado_privado.key'),
+    cert: fs.readFileSync('caminho_para_o_certificado_publico.cert')
+  };
 
 
 //Conexao banco
@@ -179,6 +188,6 @@ app.post('/deleteUser', async (req, res) => {
 
 
 // Iniciando o servidor
-app.listen(port,() => {
+https.createServer(options, app).listen(port, () => {
     console.log(`Servidor rodando na porta ${port}!!`);
 });
