@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 const app = express();
 app.use(cors());
+const port = 8000
 
 
 //Conexao banco
@@ -178,6 +179,6 @@ app.post('/deleteUser', async (req, res) => {
 
 
 // Iniciando o servidor
-app.listen(process.env.port,() => {
-    console.log(`Servidor rodando na porta ${process.env.port}!!`);
+app.listen(port,() => {
+    console.log(`Servidor rodando na porta ${port}!!`);
 });
