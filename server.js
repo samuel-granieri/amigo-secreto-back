@@ -180,6 +180,6 @@ app.post('/deleteUser', async (req, res) => {
 
 
 // Iniciando o servidor
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+app.listen(process.env.port,() => {
+    console.log(`Servidor rodando!!`);
 });
