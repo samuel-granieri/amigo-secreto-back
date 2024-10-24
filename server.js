@@ -3,8 +3,6 @@ import { MongoClient, ObjectId } from 'mongodb';
 import express from 'express';
 import cors from 'cors';
 const app = express();
-const port = 3000;
-
 app.use(cors());
 
 
@@ -181,5 +179,5 @@ app.post('/deleteUser', async (req, res) => {
 
 // Iniciando o servidor
 app.listen(process.env.port,() => {
-    console.log(`Servidor rodando na porta ${port}!!`);
+    console.log(`Servidor rodando na porta ${process.env.port}!!`);
 });
