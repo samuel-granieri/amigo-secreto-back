@@ -10,10 +10,10 @@ const app = express();
 app.use(cors());
 const port = 8000
 
-const options = {
-    key: fs.readFileSync('caminho_para_o_certificado_privado.key'),
-    cert: fs.readFileSync('caminho_para_o_certificado_publico.cert')
-  };
+// const options = {
+//     key: fs.readFileSync('caminho_para_o_certificado_privado.key'),
+//     cert: fs.readFileSync('caminho_para_o_certificado_publico.cert')
+//   };
 
 
 //Conexao banco
