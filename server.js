@@ -188,6 +188,7 @@ app.post('/deleteUser', async (req, res) => {
 
 
 // Iniciando o servidor
-https.createServer(options, app).listen(port, () => {
+app.listen(port, () => {
+//https.createServer(options, app).listen(port, () => {
     console.log(`Servidor rodando na porta ${port}!!`);
 });
