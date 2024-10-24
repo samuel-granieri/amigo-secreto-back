@@ -3,17 +3,32 @@ import { MongoClient, ObjectId } from 'mongodb';
 import express from 'express';
 import cors from 'cors';
 import https from 'https';
-import fs from 'fs';
+//import fs from 'fs';
+import { createCA, createCert } from "mkcert";
 
 
 const app = express();
 app.use(cors());
 const port = 8000
 
-// const options = {
-//     key: fs.readFileSync('caminho_para_o_certificado_privado.key'),
-//     cert: fs.readFileSync('caminho_para_o_certificado_publico.cert')
-//   };
+const ca = await createCA({
+    organization: "SamucaDev",
+    countryCode: "BR",
+    state: "São Paulo",
+    locality: "São Paulo",
+    validity: 365
+  });
+  
+  const cert = await createCert({
+    ca: { key: ca.key, cert: ca.cert },
+    domains: ["127.0.0.1", "localhost"],
+    validity: 365
+  });
+
+const options = {
+    key: cert.key,
+    cert: cert.cert
+  };
 
 
 //Conexao banco
@@ -188,7 +203,7 @@ app.post('/deleteUser', async (req, res) => {
 
 
 // Iniciando o servidor
-app.listen(port, () => {
-//https.createServer(options, app).listen(port, () => {
+//app.listen(port, () => {
+https.createServer(options, app).listen(port, () => {
     console.log(`Servidor rodando na porta ${port}!!`);
 });
