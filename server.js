@@ -4,16 +4,18 @@ import express from 'express';
 import cors from 'cors';
 import https from 'https';
 import fs from 'fs';
+import path from 'path';
+
 
 
 const app = express();
 app.use(cors());
-const port = 8000
+const port = 3443
 
 
 const options = {
-    key: fs.readFileSync(''),
-    cert: fs.readFileSync('caminho_para_o_certificado_publico.cert')
+    key: fs.readFileSync(path.join('./', 'certificados', 'key.pem')),
+    cert: fs.readFileSync(path.join('./', 'certificados', 'cert.pem'))
   };
 
 
