@@ -13,10 +13,10 @@ app.use(cors());
 const port = 3443
 
 
-const options = {
-    key: fs.readFileSync(path.join('./', 'certificados', 'key.pem')),
-    cert: fs.readFileSync(path.join('./', 'certificados', 'cert.pem'))
-  };
+// const options = {
+//     key: fs.readFileSync(path.join('./', 'certificados', 'key.pem')),
+//     cert: fs.readFileSync(path.join('./', 'certificados', 'cert.pem'))
+//   };
 
 
 //Conexao banco
@@ -191,7 +191,7 @@ app.post('/deleteUser', async (req, res) => {
 
 
 // Iniciando o servidor
-//app.listen(port, () => {
-https.createServer(options, app).listen(port, () => {
+app.listen(port, () => {
+//https.createServer(options, app).listen(port, () => {
     console.log(`Servidor rodando na porta ${port}!!`);
 });
