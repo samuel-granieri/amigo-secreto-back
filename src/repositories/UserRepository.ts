@@ -21,14 +21,21 @@ export class UserRepository {
   }
 
   async update(user: IUser) {
-    if (!user._id) throw new Error("ID obrigatório");
-    const filter = { _id: new ObjectId(user._id) };
-    const updateDoc = { $set: { ...user } };
-    await this.client.connect();
+    const id = new ObjectId(user._id);
+    if (!id) throw new Error("ID obrigatório");
+
+    const { _id, ...userData } = user;
+    const filter = { _id: id };
+    const updateDoc = { $set: userData };    
+
+    await this.client.connect();    
     const result = await this.client.db(this.dbName).collection<IUser>("users").updateOne(filter, updateDoc);
     await this.client.close();
-    return result;
-  }
+
+    console.log(result);
+
+  return result;
+}
 
   async delete(id: string) {
     const filter = { _id: new ObjectId(id) };
