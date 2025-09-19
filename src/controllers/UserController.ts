@@ -19,7 +19,7 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
-  const { id } = req.query;
+  const { id } = req.params;
   const result = await service.deleteUser(id as string);
   res.json(result);
 };
